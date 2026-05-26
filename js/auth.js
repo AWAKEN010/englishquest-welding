@@ -1,1 +1,1 @@
-// complete
+FULL CORRECT auth.js
