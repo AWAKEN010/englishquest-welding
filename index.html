@@ -296,22 +296,66 @@
         grid.appendChild(div);
       });
     }
-    function showLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); document.getElementById('login-modal').classList.add('flex'); }
-    function hideLoginModal() { const m = document.getElementById('login-modal'); m.classList.remove('flex'); m.classList.add('hidden'); }
-    function showRegisterModal() { document.getElementById('register-modal').classList.remove('hidden'); document.getElementById('register-modal').classList.add('flex'); }
-    function hideRegisterModal() { const m = document.getElementById('register-modal'); m.classList.remove('flex'); m.classList.add('hidden'); }
-    function switchToLogin() { hideRegisterModal(); setTimeout(showLoginModal, 150); }
-    function switchToRegister() { hideLoginModal(); setTimeout(showRegisterModal, 150); }
-    async function logoutUser() { if (confirm('¿Cerrar sesión?')) { await logout(); } }
+    function showLoginModal() {
+      document.getElementById('login-modal').classList.remove('hidden');
+      document.getElementById('login-modal').classList.add('flex');
+    }
+    
+    function hideLoginModal() {
+      const m = document.getElementById('login-modal');
+      m.classList.remove('flex');
+      m.classList.add('hidden');
+    }
+    
+    function showRegisterModal() {
+      document.getElementById('register-modal').classList.remove('hidden');
+      document.getElementById('register-modal').classList.add('flex');
+    }
+    
+    function hideRegisterModal() {
+      const m = document.getElementById('register-modal');
+      m.classList.remove('flex');
+      m.classList.add('hidden');
+    }
+    
+    function switchToLogin() {
+      hideRegisterModal();
+      setTimeout(showLoginModal, 150);
+    }
+    
+    function switchToRegister() {
+      hideLoginModal();
+      setTimeout(showRegisterModal, 150);
+    }
+
+    async function logoutUser() {
+      if (confirm('¿Cerrar sesión?')) {
+        await logout();
+      }
+    }
+
+    // Exponer funciones al scope global (necesario porque los onclick="" del HTML corren en scope global)
+    window.showLoginModal = showLoginModal;
+    window.showRegisterModal = showRegisterModal;
+    window.hideLoginModal = hideLoginModal;
+    window.hideRegisterModal = hideRegisterModal;
+    window.switchToLogin = switchToLogin;
+    window.switchToRegister = switchToRegister;
+
     function setupKonamiCode() {
       let keys = [];
       const konami = [38,38,40,40,37,39,37,39,66,65];
       document.addEventListener('keydown', e => {
         keys.push(e.keyCode);
         if (keys.length > 10) keys.shift();
-        if (JSON.stringify(keys) === JSON.stringify(konami)) { launchConfetti(300); keys = []; showToast('¡Modo fiesta activado! 🎉', 'success'); }
+        if (JSON.stringify(keys) === JSON.stringify(konami)) {
+          launchConfetti(300);
+          keys = [];
+          showToast('¡Modo fiesta activado! 🎉', 'success');
+        }
       });
     }
+
     initializeApp();
   </script>
 </body>
